@@ -23,6 +23,7 @@ function create(objetoDoVideo) {
 function getAll() {
   return fetch(URL_VIDEOS)
     .then(async (respostaDoServidor) => {
+      console.log(URL_VIDEOS);
       if (respostaDoServidor.ok) {
         const resposta = await respostaDoServidor.json();
         return resposta;
