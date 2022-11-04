@@ -7,14 +7,14 @@ import { ExtraLink, Title, VideoCardGroupContainer } from './styles';
 function Carousel({
   ignoreFirstVideo,
   category,
+  videos
 }) {
   const categoryTitle = category.titulo;
   const categoryColor = category.cor;
   const categoryExtraLink = category.link_extra;
-  const {videos} = category;
 
-  console.log(videos)
-  console.log(category)
+  // console.log(videos)
+  // console.log(category)
   return (
     <VideoCardGroupContainer>
       {categoryTitle && (

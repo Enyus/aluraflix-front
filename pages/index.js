@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import BannerMain from "../components/BannerMain";
 import PageDefault from "../components/PageDefault";
+import Carousel from "../components/Carousel";
 import categoriasRepository from "./api/repositories/categorias";
 
 function Home() {
@@ -11,7 +12,7 @@ function Home() {
     categoriasRepository
       .getAllWithVideos()
       .then((categoriasComVideos) => {
-        // console.log(categoriasComVideos.videos[0]);
+        // console.log(categoriasComVideos.videos);
         setDadosIniciais(categoriasComVideos.videos);
       })
       .catch((err) => {
@@ -23,21 +24,21 @@ function Home() {
     <PageDefault paddingAll={0}>
       {dadosIniciais.length === 0 && <div>Loading...</div>}
 
-      {dadosIniciais.map((categoria, indice) => {
+      {dadosIniciais.map((video, indice) => {
         if (indice === 0) {
           return (
-            <div key={categoria.id}>
+            <div key={video.id}>
               <BannerMain
-                videoTitle={dadosIniciais[0].titulo}
-                url={dadosIniciais[0].url}
-                videoDescription={dadosIniciais[0].descricao}
+                videoTitle={video.titulo}
+                url={video.url}
+                videoDescription={video.descricao}
               />
-              {/* <Carousel ignoreFirstVideo category={dadosIniciais[0]} /> */}
+              <Carousel ignoreFirstVideo category={video.categoria} videos={ dadosIniciais.filter( videoDaCategoria => videoDaCategoria.categoriaId == video.categoriaId ) } />
             </div>
           );
         }
 
-        // return <Carousel key={categoria.id} category={categoria} />;
+        // return <Carousel key={video.id} category={video.categoria} videos={ dadosIniciais.filter( videoDaCategoria => videoDaCategoria.categoriaId == video.categoriaId ) />;
       })}
     </PageDefault>
   );
