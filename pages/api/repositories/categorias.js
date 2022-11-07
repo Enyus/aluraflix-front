@@ -9,7 +9,8 @@ function getAll() {
       // console.log(respostaDoServidor)
       if (respostaDoServidor.ok) {
         const resposta = await respostaDoServidor.json();
-        return resposta;
+        // console.log(resposta.categorias)
+        return resposta.categorias;
       }
       
       throw new Error('Não foi possível pegar os dados :(');

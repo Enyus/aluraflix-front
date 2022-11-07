@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import PageDefault from '../../../components/PageDefault';
-import useForm from '../../../hooks/useForm';
-import FormField from '../../../components/FormField';
-import Button from '../../../components/Button';
-import videosRepository from '../../../repositories/videos';
-import categoriasRepository from '../../../repositories/categorias';
+import PageDefault from '../components/PageDefault';
+import useForm from '../hooks/useForm';
+import FormField from '../components/FormField';
+import Button from '../components/Button';
+import videosRepository from './api/repositories/videos';
+import categoriasRepository from './api/repositories/categorias';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 function CadastroVideo() {
-  const history = useHistory();
+  const router = useRouter()
   const [categorias, setCategorias] = useState([]);
   const categoryTitles = categorias.map(({ titulo }) => titulo);
   const { handleChange, values } = useForm({
@@ -24,6 +25,8 @@ function CadastroVideo() {
         setCategorias(categoriasFromServer);
       });
   }, []);
+
+  console.log(categoryTitles)
 
   return (
     <PageDefault>
@@ -44,7 +47,7 @@ function CadastroVideo() {
         })
           .then(() => {
             console.log('Cadastrou com sucesso!');
-            history.push('/');
+            router.push('/');
           });
       }}
       >
@@ -78,9 +81,11 @@ function CadastroVideo() {
       <br />
       <br />
 
-      <Link to="/cadastro/categoria">
+      <Link href="/cadastrarCategoria">
         Cadastrar Categoria
       </Link>
+
+      <br />
     </PageDefault>
   );
 }

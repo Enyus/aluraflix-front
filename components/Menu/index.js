@@ -11,7 +11,7 @@ function Menu() {
         <Image className={styles.Logo} src={Logo} alt="AluraFlix logo" />
       </Link>
 
-      <Link className={styles.ButtonLink} href="/cadastro/video">
+      <Link className={styles.ButtonLink} href="/cadastroVideo">
         Novo vídeo
       </Link>
     </nav>
