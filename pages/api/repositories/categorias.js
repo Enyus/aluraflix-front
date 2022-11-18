@@ -1,17 +1,11 @@
 import URL_BACKEND_TOP from "../../../config/index";
 
-const URL_CATEGORIES = `${URL_BACKEND_TOP}/categorias`;
-const URL_VIDEOS = `${URL_BACKEND_TOP}/videos`;
+const URL_CATEGORIES = `${URL_BACKEND_TOP}/categoriasapi`;
+const URL_VIDEOS = `${URL_BACKEND_TOP}/videosapi`;
 
 function getAll() {
-  return fetch(`${URL_CATEGORIES}`, {
-    method: "GET",
-    headers: {
-      "Content-type": "application/json",
-      Authorization:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4iLCJpYXQiOjE2Njg3MTA5ODksImV4cCI6MTY3Mzg5NDk4OX0.3YWufYe2PLIEqL_c1QkGYIwWCRiLBjJQ8ZePtt_sHwk",
-    },
-  }).then(async (respostaDoServidor) => {
+  return fetch(`${URL_CATEGORIES}`)
+    .then(async (respostaDoServidor) => {
     // console.log(respostaDoServidor)
     if (respostaDoServidor.ok) {
       const resposta = await respostaDoServidor.json();
@@ -24,14 +18,7 @@ function getAll() {
 }
 
 function getAllWithVideos() {
-  return fetch(`${URL_VIDEOS}`, {
-    method: "GET",
-    headers: {
-      "Content-type": "application/json",
-      Authorization:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4iLCJpYXQiOjE2Njg3MTA5ODksImV4cCI6MTY3Mzg5NDk4OX0.3YWufYe2PLIEqL_c1QkGYIwWCRiLBjJQ8ZePtt_sHwk",
-    },
-  }).then(async (respostaDoServidor) => {
+  return fetch(`${URL_VIDEOS}`).then(async (respostaDoServidor) => {
     // console.log(respostaDoServidor)
     if (respostaDoServidor.ok) {
       const resposta = await respostaDoServidor.json();

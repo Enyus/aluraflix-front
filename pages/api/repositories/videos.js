@@ -1,13 +1,12 @@
 import config from '../../../config';
 
-const URL_VIDEOS = `${config.URL_BACKEND_TOP}/videos`;
+const URL_VIDEOS = `${config.URL_BACKEND_TOP}/videosapi`;
 
 function create(objetoDoVideo) {
   return fetch(`${URL_VIDEOS}?_embed=videos`, {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',
-      'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4iLCJpYXQiOjE2Njg3MTA5ODksImV4cCI6MTY3Mzg5NDk4OX0.3YWufYe2PLIEqL_c1QkGYIwWCRiLBjJQ8ZePtt_sHwk'
     },
     body: JSON.stringify(objetoDoVideo),
   })
