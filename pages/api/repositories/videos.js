@@ -7,6 +7,7 @@ function create(objetoDoVideo) {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',
+      'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4iLCJpYXQiOjE2Njg3MTA5ODksImV4cCI6MTY3Mzg5NDk4OX0.3YWufYe2PLIEqL_c1QkGYIwWCRiLBjJQ8ZePtt_sHwk'
     },
     body: JSON.stringify(objetoDoVideo),
   })

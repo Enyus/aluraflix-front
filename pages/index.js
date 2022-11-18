@@ -20,6 +20,7 @@ function Home() {
       .catch((err) => {
         console.log(err);
       });
+      console.log(dadosIniciais)
   }, []);
 
   return (
@@ -62,7 +63,7 @@ function Home() {
             );
           }
 
-          // return <Carousel key={video.id} category={video.categoria} videos={ dadosIniciais.filter( videoDaCategoria => videoDaCategoria.categoriaId == video.categoriaId ) } />;
+          return <Carousel key={video.id} category={video.categoria} videos={ dadosIniciais.filter( videoDaCategoria => videoDaCategoria.categoriaId == video.categoriaId ) } />;
         })}
       </PageDefault>
     </>
