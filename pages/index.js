@@ -13,57 +13,58 @@ function Home() {
   useEffect(() => {
     categoriasRepository
       .getAllWithVideos()
-      .then((categoriasComVideos) => {
-        // console.log(categoriasComVideos.videos);
-        setDadosIniciais(categoriasComVideos.videos);
+      .then((repostaDoServidor) => {
+        // console.log(repostaDoServidor)
+        let arrayCategorias = []
+        repostaDoServidor.videos.map( video => {
+          if (!arrayCategorias.includes(video.categoria.id)){
+            arrayCategorias.push(video.categoria.id)
+          }
+        });
+        setCategorias(arrayCategorias);
+        setDadosIniciais(repostaDoServidor.videos);
       })
       .catch((err) => {
         console.log(err);
       });
-      console.log(dadosIniciais)
   }, []);
 
   return (
     <>
       <Head>
-        <link
-          rel="stylesheet"
-          type="text/css"
-          charSet="UTF-8"
-          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
-        />
-        <link
-          rel="stylesheet"
-          type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
-        />
+        <title>AluraFlix</title>
       </Head>
 
       <PageDefault paddingAll={0}>
-        {dadosIniciais.length === 0 && <div>Loading...</div>}
+        {dadosIniciais.length === 0 && <div>Loading...(O primeiro carregamento pode demorar um pouco para o servidor do Render ser iniciado)</div>}
 
-        {dadosIniciais.map((video, indice) => {
+        {categorias.map((categoria, indice) => {
           if (indice === 0) {
             return (
-              <div key={video.id}>
+              <div key={categoria.id}>
                 <BannerMain
-                  videoTitle={video.titulo}
-                  url={video.url}
-                  videoDescription={video.descricao}
+                  videoTitle={dadosIniciais.find(video => video.categoria.id == categoria).titulo}
+                  url={dadosIniciais.find(video => video.categoria.id == categoria).url}
+                  videoDescription={dadosIniciais.find(video => video.categoria.id == categoria).descricao}
                 />
                 <Carousel
                   ignoreFirstVideo
-                  category={video.categoria}
+                  category={dadosIniciais.find(video => video.categoria.id == categoria).categoria}
                   videos={dadosIniciais.filter(
                     (videoDaCategoria) =>
-                      videoDaCategoria.categoriaId == video.categoriaId
+                      videoDaCategoria.categoriaId == categoria
                   )}
                 />
               </div>
             );
           }
 
-          return <Carousel key={video.id} category={video.categoria} videos={ dadosIniciais.filter( videoDaCategoria => videoDaCategoria.categoriaId == video.categoriaId ) } />;
+          return (
+            <Carousel 
+              key={categoria.id} 
+              category={dadosIniciais.find(video => video.categoria.id == categoria).categoria} 
+              videos={ dadosIniciais.filter( videoDaCategoria => videoDaCategoria.categoriaId == categoria ) } 
+            />);
         })}
       </PageDefault>
     </>

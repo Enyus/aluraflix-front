@@ -11,7 +11,11 @@ function Carousel({
 }) {
   const categoryTitle = category.titulo;
   const categoryColor = category.cor;
-  const categoryExtraLink = category.link_extra;
+  const categoryExtraLink = category.link_extra || "";
+  let categoryTextColor = 'white';
+  if (categoryColor =='white') {
+    categoryTextColor = 'black'
+  }
 
   // console.log(videos)
   // console.log(category)
@@ -19,7 +23,7 @@ function Carousel({
     <VideoCardGroupContainer>
       {categoryTitle && (
         <>
-          <Title style={{ backgroundColor: categoryColor || 'red' }}>
+          <Title style={{ backgroundColor: categoryColor || 'red', color: categoryTextColor, textTransform: 'capitalize' }}>
             {categoryTitle}
           </Title>
           {categoryExtraLink

@@ -4,7 +4,7 @@ const URL_CATEGORIES = `${URL_BACKEND_TOP}/categoriasapi`;
 const URL_VIDEOS = `${URL_BACKEND_TOP}/videosapi`;
 
 function getAll() {
-  return fetch(`${URL_CATEGORIES}`)
+  return fetch(`${URL_VIDEOS}`)
     .then(async (respostaDoServidor) => {
     // console.log(respostaDoServidor)
     if (respostaDoServidor.ok) {
@@ -18,7 +18,7 @@ function getAll() {
 }
 
 function getAllWithVideos() {
-  return fetch(`${URL_VIDEOS}`).then(async (respostaDoServidor) => {
+  return fetch(`${URL_CATEGORIES}`).then(async (respostaDoServidor) => {
     // console.log(respostaDoServidor)
     if (respostaDoServidor.ok) {
       const resposta = await respostaDoServidor.json();
