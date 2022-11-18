@@ -1,9 +1,10 @@
-import config from '../../../config';
+import URL_BACKEND_TOP from "../../../config/index";
 
-const URL_VIDEOS = `${config.URL_BACKEND_TOP}/videosapi`;
+const URL_VIDEOS = `${URL_BACKEND_TOP}/videosapi`;
 
 function create(objetoDoVideo) {
-  return fetch(`${URL_VIDEOS}?_embed=videos`, {
+  console.log(objetoDoVideo);
+  return fetch(`${URL_VIDEOS}`, {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',

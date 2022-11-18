@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import PageDefault from '../components/PageDefault';
 import FormField from '../components/FormField';
 import Button from '../components/Button';
 import useForm from '../hooks/useForm';
 import categoriasRepository from "./api/repositories/categorias";
+import { useRouter } from 'next/router';
 
 function CadastroCategoria() {
   const valoresIniciais = {
@@ -12,21 +13,9 @@ function CadastroCategoria() {
     descricao: '',
     cor: '',
   };
-
   const { handleChange, values, clearForm } = useForm(valoresIniciais);
+  const router = useRouter()
 
-  const [categorias, setCategorias] = useState([]);
-
-  useEffect(() => {
-    categoriasRepository
-      .getAllWithVideos()
-      .then((repostaDoServidor) => {
-        console.log(repostaDoServidor)
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
   return (
     <PageDefault>
@@ -37,10 +26,16 @@ function CadastroCategoria() {
 
       <form onSubmit={function handleSubmit(infosDoEvento) {
         infosDoEvento.preventDefault();
-        setCategorias([
-          ...categorias,
-          values,
-        ]);
+
+        categoriasRepository
+          .addCategoria({
+            titulo: values.nome,
+            cor: values.cor,
+          })
+          .then(() => {
+            console.log("Cadastrou com sucesso!");
+            router.push("/");
+          });
 
         clearForm();
       }}
@@ -50,14 +45,6 @@ function CadastroCategoria() {
           label="Nome da Categoria"
           name="nome"
           value={values.nome}
-          onChange={handleChange}
-        />
-
-        <FormField
-          label="Descrição"
-          type="textarea"
-          name="descricao"
-          value={values.descricao}
           onChange={handleChange}
         />
 
@@ -73,21 +60,6 @@ function CadastroCategoria() {
           Cadastrar
         </Button>
       </form>
-
-      {categorias.length === 0 && (
-        <div>
-          {/* Carregando... */}
-          Loading...
-        </div>
-      )}
-
-      <ul>
-        {categorias.map((categoria) => (
-          <li key={`${categoria.titulo}`}>
-            {categoria.titulo}
-          </li>
-        ))}
-      </ul>
 
       <Link href="/">
         Ir para home
